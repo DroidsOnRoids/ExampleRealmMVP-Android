@@ -20,7 +20,13 @@ android {
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
-	testCompile 'junit:junit:4.12'
 	compile 'com.android.support:appcompat-v7:23.1.1'
+	compile 'com.jakewharton:butterknife:7.0.1'
+	compile 'com.squareup.dagger:dagger:1.2.1'
+	compile 'com.squareup.dagger:dagger-compiler:1.2.1'
+	compile 'io.realm:realm-android:0.87.4'
+
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	testCompile 'junit:junit:4.12'
 }
