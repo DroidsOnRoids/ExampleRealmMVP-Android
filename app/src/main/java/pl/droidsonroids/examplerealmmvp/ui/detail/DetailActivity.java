@@ -9,11 +9,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import javax.inject.Inject;
-import pl.droidsonroids.examplerealmmvp.MyApplication;
+import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
+import pl.droidsonroids.examplerealmmvp.model.utils.BookDetailsUtils;
+import pl.droidsonroids.examplerealmmvp.ui.author.AuthorActivity;
+import pl.droidsonroids.examplerealmmvp.ui.publisher.PublisherActivity;
 
-public class DetailActivity extends AppCompatActivity implements MyDetailView{
+public class DetailActivity extends AppCompatActivity implements DetailView {
 
     private static final String EXTRA_ID = "EXTRA_ID";
 
@@ -21,7 +24,7 @@ public class DetailActivity extends AppCompatActivity implements MyDetailView{
     @Bind(R.id.text_title) TextView mTextTitle;
     @Bind(R.id.text_publisher) TextView mTextPublisher;
 
-    @Inject MyDetailPresenter mMyDetailPresenter;
+    @Inject DetailPresenter mMyDetailPresenter;
 
     public static Intent getStartIntent(final Context context, final int isbn) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -34,7 +37,7 @@ public class DetailActivity extends AppCompatActivity implements MyDetailView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_detail);
         ButterKnife.bind(this);
-        MyApplication.injectModules(this, new MyDetailModule(getIntent().getExtras().getInt(EXTRA_ID)));
+        BooksApplication.injectModules(this, new DetailModule(getIntent().getExtras().getInt(EXTRA_ID)));
     }
 
     @Override
@@ -50,19 +53,35 @@ public class DetailActivity extends AppCompatActivity implements MyDetailView{
     }
 
     @Override
-    public void showBookDetails(final Book book) {
-        mTextAuthor.setText(String.format("%s %s", book.getAuthor().getName(), book.getAuthor().getLastname()));
-        mTextTitle.setText(book.getTitle());
-        mTextPublisher.setText(book.getPublishers().get(0).getName());
+    protected void onDestroy() {
+        mMyDetailPresenter.closeRealm();
+        super.onDestroy();
     }
 
     @Override
-    public void showPublisherView(final int bookId) {
+    public void showBookDetails(final Book book) {
+        mTextAuthor.setText(BookDetailsUtils.getAuthorFullName(book));
+        mTextTitle.setText(book.getTitle());
+        mTextPublisher.setText(book.getPublisher().getName());
+    }
 
+    @Override
+    public void showPublisherView(final String publisher) {
+        startActivity(PublisherActivity.getStartIntent(this, publisher));
+    }
+
+    @Override
+    public void showAuthorView(final String author) {
+        startActivity(AuthorActivity.getStartIntent(this, author));
     }
 
     @OnClick(R.id.text_publisher)
     public void onPublisherClick() {
-        mMyDetailPresenter.onPublisherClick();
+        mMyDetailPresenter.onPublisherClick(mTextPublisher.getText().toString());
+    }
+
+    @OnClick(R.id.text_author)
+    public void onAuthorClick() {
+        mMyDetailPresenter.onAuthorClick(mTextAuthor.getText().toString());
     }
 }

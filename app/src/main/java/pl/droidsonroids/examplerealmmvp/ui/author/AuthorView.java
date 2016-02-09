@@ -7,7 +7,7 @@ public interface AuthorView {
 
     void showBooks(RealmList<Book> books);
 
-    class EmptyPublisherView implements AuthorView {
+    class EmptyAuthorView implements AuthorView {
 
         @Override
         public void showBooks(final RealmList<Book> books) {

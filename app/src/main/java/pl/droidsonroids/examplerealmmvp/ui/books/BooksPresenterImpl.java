@@ -5,7 +5,7 @@ import pl.droidsonroids.examplerealmmvp.model.realm.RealmService;
 public class BooksPresenterImpl implements BooksPresenter {
 
     private final RealmService mRealmService;
-    private ListView mMyListView = new ListView.EmptyMyListView();
+    private BooksView mMyListView = new BooksView.EmptyMyListView();
 
     private boolean booksWereShown = false;
 
@@ -15,7 +15,7 @@ public class BooksPresenterImpl implements BooksPresenter {
 
     @Override
     public void setView(final Object view) {
-        mMyListView = (ListView) view;
+        mMyListView = (BooksView) view;
         showBooksIfNeeded();
     }
 
@@ -28,7 +28,7 @@ public class BooksPresenterImpl implements BooksPresenter {
 
     @Override
     public void clearView() {
-        mMyListView = new ListView.EmptyMyListView();
+        mMyListView = new BooksView.EmptyMyListView();
     }
 
     @Override

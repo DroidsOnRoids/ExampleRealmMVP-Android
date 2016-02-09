@@ -1,7 +1,17 @@
 package pl.droidsonroids.examplerealmmvp.ui.publisher;
 
-/**
- * Created by droidsonroids on 08.02.16.
- */
-public class PublisherView {
+import io.realm.RealmList;
+import pl.droidsonroids.examplerealmmvp.model.Book;
+
+public interface PublisherView {
+
+    void showBooks(RealmList<Book> books);
+
+    class EmptyPublisherView implements PublisherView {
+
+        @Override
+        public void showBooks(final RealmList<Book> books) {
+
+        }
+    }
 }

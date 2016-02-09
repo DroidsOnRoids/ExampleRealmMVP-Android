@@ -11,28 +11,28 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.RealmResults;
 import javax.inject.Inject;
-import pl.droidsonroids.examplerealmmvp.MyApplication;
+import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
-import pl.droidsonroids.examplerealmmvp.ui.adapter.ListAdapter;
+import pl.droidsonroids.examplerealmmvp.ui.adapter.BookListAdapter;
 import pl.droidsonroids.examplerealmmvp.ui.add.AddBookActivity;
 import pl.droidsonroids.examplerealmmvp.ui.detail.DetailActivity;
 
-public class BooksActivity extends AppCompatActivity implements ListView, ListAdapter.OnBookClickListener {
+public class BooksActivity extends AppCompatActivity implements BooksView, BookListAdapter.OnBookClickListener {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.toolbar) Toolbar mToolbar;
 
-    @Inject ListPresenter mMyListPresenter;
+    @Inject BooksPresenter mMyListPresenter;
 
-    private ListAdapter mAdapter;
+    private BookListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MyApplication.injectModules(this, new ListModule());
+        BooksApplication.injectModules(this, new BooksModule());
 
         initToolbar();
         initList();
@@ -43,7 +43,7 @@ public class BooksActivity extends AppCompatActivity implements ListView, ListAd
     }
 
     private void initList() {
-        mAdapter = new ListAdapter();
+        mAdapter = new BookListAdapter();
         mAdapter.setOnBookClickListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

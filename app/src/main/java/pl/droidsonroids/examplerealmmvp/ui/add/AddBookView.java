@@ -1,7 +1,19 @@
 package pl.droidsonroids.examplerealmmvp.ui.add;
 
-/**
- * Created by droidsonroids on 08.02.16.
- */
-public class AddBookView {
+public interface AddBookView {
+    void finish();
+    void showAddBookError();
+
+    class EmptyAddBookView implements AddBookView {
+
+        @Override
+        public void finish() {
+
+        }
+
+        @Override
+        public void showAddBookError() {
+
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package pl.droidsonroids.examplerealmmvp.ui.publisher;
 
-/**
- * Created by droidsonroids on 08.02.16.
- */
-public class PublisherPresenter {
+import pl.droidsonroids.examplerealmmvp.ui.Presenter;
+
+public interface PublisherPresenter extends Presenter {
 }

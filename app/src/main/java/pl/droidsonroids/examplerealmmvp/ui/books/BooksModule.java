@@ -9,7 +9,7 @@ import pl.droidsonroids.examplerealmmvp.model.realm.RealmService;
 public class BooksModule {
 
     @Provides
-    ListPresenter provideMyListPresenter(final RealmService realmService) {
-        return new ListPresenterImpl(realmService);
+    BooksPresenter provideMyListPresenter(final RealmService realmService) {
+        return new BooksPresenterImpl(realmService);
     }
 }

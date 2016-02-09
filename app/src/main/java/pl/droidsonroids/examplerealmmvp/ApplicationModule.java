@@ -1,20 +1,22 @@
 package pl.droidsonroids.examplerealmmvp;
 
-import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
+import pl.droidsonroids.examplerealmmvp.model.realm.RealmService;
 
-@Module(injects = MyApplication.class, library = true)
+@Module(injects = BooksApplication.class, library = true)
 public class ApplicationModule {
 
-    private final Context mContext;
+    public ApplicationModule() {}
 
-    public ApplicationModule(final Context context) {
-        mContext = context;
+    @Provides
+    Realm provideRealm() {
+        return Realm.getDefaultInstance();
     }
 
     @Provides
-    Context provideContext() {
-        return mContext;
+    RealmService provideRealmService(final Realm realm) {
+        return new RealmService(realm);
     }
 }

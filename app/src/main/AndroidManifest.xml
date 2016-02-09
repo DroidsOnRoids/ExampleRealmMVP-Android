@@ -3,20 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".MyApplication"
+        android:name=".BooksApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.list.MyListActivity">
+        <activity
+            android:name=".ui.books.BooksActivity"
+            android:label="Books"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.detail.MyDetailActivity"></activity>
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:label="@string/book_details"/>
+        <activity
+            android:name=".ui.add.AddBookActivity"
+            android:label="@string/add_new_book"/>
+        <activity
+            android:name=".ui.publisher.PublisherActivity"
+            android:label="@string/publisher_books"/>
+        <activity
+            android:name=".ui.author.AuthorActivity"
+            android:label="@string/author_books"/>
     </application>
 
 </manifest>

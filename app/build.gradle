@@ -17,10 +17,16 @@ android {
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+	packagingOptions {
+		exclude 'META-INF/services/javax.annotation.processing.Processor'
+		exclude 'META-INF/maven/com.squareup/javawriter/pom.xml'
+		exclude 'META-INF/maven/com.squareup/javawriter/pom.properties'
+	}
 }
 
 dependencies {
 	compile 'com.android.support:appcompat-v7:23.1.1'
+	compile 'com.android.support:design:23.1.1'
 	compile 'com.jakewharton:butterknife:7.0.1'
 	compile 'com.squareup.dagger:dagger:1.2.1'
 	compile 'com.squareup.dagger:dagger-compiler:1.2.1'

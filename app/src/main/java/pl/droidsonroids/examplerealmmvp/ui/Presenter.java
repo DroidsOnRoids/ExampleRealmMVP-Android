@@ -1,7 +1,8 @@
 package pl.droidsonroids.examplerealmmvp.ui;
 
-/**
- * Created by droidsonroids on 08.02.16.
- */
-public class Presenter {
+public interface Presenter {
+
+    void setView(Object view);
+    void clearView();
+    void closeRealm();
 }

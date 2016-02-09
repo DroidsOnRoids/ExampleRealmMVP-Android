@@ -7,18 +7,18 @@ import pl.droidsonroids.examplerealmmvp.model.realm.RealmService;
 public class AuthorPresenterImpl implements AuthorPresenter {
 
     private final RealmService mRealmService;
-    private final String mPublisher;
-    private PublisherView mPublisherView = new PublisherView.EmptyPublisherView();
+    private final String mAuthor;
+    private AuthorView mAuthorView = new AuthorView.EmptyAuthorView();
 
-    public AuthorPresenterImpl(final RealmService realmService, final String publisher) {
+    public AuthorPresenterImpl(final RealmService realmService, final String author) {
         mRealmService = realmService;
-        mPublisher = publisher;
+        mAuthor = author;
     }
 
     @Override
     public void setView(final Object view) {
-        mPublisherView = (PublisherView) view;
-        mPublisherView.showBooks(formatBooks(mRealmService.getPublisherBooks(mPublisher)));
+        mAuthorView = (AuthorView) view;
+        mAuthorView.showBooks(formatBooks(mRealmService.getAuthorBooks(mAuthor)));
     }
 
     private RealmList<Book> formatBooks(final RealmList<Book> publisherBooks) {
@@ -27,7 +27,7 @@ public class AuthorPresenterImpl implements AuthorPresenter {
 
     @Override
     public void clearView() {
-        mPublisherView = new PublisherView.EmptyPublisherView();
+        mAuthorView = new AuthorView.EmptyAuthorView();
     }
 
     @Override

@@ -15,7 +15,7 @@ public class DetailModule {
     }
 
     @Provides
-    MyDetailPresenter provideMyDetailPresenter(final RealmService realmService) {
-        return new MyDetailPresenterImpl(realmService, mBookId);
+    DetailPresenter provideMyDetailPresenter(final RealmService realmService) {
+        return new DetailPresenterImpl(realmService, mBookId);
     }
 }

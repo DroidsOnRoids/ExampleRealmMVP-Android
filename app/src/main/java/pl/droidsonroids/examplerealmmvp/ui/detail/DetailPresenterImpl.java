@@ -6,7 +6,7 @@ public class DetailPresenterImpl implements DetailPresenter {
 
     private final RealmService mRealmService;
     private final int mBookId;
-    private MyDetailView mMyDetailView = new MyDetailView.EmptyDetailView();
+    private DetailView mMyDetailView = new DetailView.EmptyDetailView();
 
     public DetailPresenterImpl(final RealmService realmService, final int bookId) {
         mRealmService = realmService;
@@ -15,13 +15,13 @@ public class DetailPresenterImpl implements DetailPresenter {
 
     @Override
     public void setView(final Object view) {
-        mMyDetailView = (MyDetailView) view;
+        mMyDetailView = (DetailView) view;
         mMyDetailView.showBookDetails(mRealmService.getBook(mBookId));
     }
 
     @Override
     public void clearView() {
-        mMyDetailView = new MyDetailView.EmptyDetailView();
+        mMyDetailView = new DetailView.EmptyDetailView();
     }
 
     @Override
@@ -30,7 +30,12 @@ public class DetailPresenterImpl implements DetailPresenter {
     }
 
     @Override
-    public void onPublisherClick() {
-        mMyDetailView.showPublisherView(mBookId);
+    public void onPublisherClick(final String publisher) {
+        mMyDetailView.showPublisherView(publisher);
+    }
+
+    @Override
+    public void onAuthorClick(final String author) {
+        mMyDetailView.showAuthorView(author);
     }
 }

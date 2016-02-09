@@ -5,7 +5,8 @@ import pl.droidsonroids.examplerealmmvp.model.Book;
 public interface DetailView {
 
     void showBookDetails(Book book);
-    void showPublisherView(int bookId);
+    void showPublisherView(String publisher);
+    void showAuthorView(String author);
 
     class EmptyDetailView implements DetailView {
 
@@ -15,7 +16,12 @@ public interface DetailView {
         }
 
         @Override
-        public void showPublisherView(final int bookId) {
+        public void showPublisherView(final String publisher) {
+
+        }
+
+        @Override
+        public void showAuthorView(final String author) {
 
         }
     }
