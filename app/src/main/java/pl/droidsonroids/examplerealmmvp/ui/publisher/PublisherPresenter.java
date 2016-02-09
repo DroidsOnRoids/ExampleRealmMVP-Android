@@ -1,6 +1,6 @@
 package pl.droidsonroids.examplerealmmvp.ui.publisher;
 
-import pl.droidsonroids.examplerealmmvp.ui.Presenter;
+import pl.droidsonroids.examplerealmmvp.ui.BasePresenter;
 
-public interface PublisherPresenter extends Presenter {
+public interface PublisherPresenter extends BasePresenter {
 }

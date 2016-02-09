@@ -14,11 +14,12 @@ import javax.inject.Inject;
 import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
+import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 import pl.droidsonroids.examplerealmmvp.ui.adapter.BookListAdapter;
 import pl.droidsonroids.examplerealmmvp.ui.add.AddBookActivity;
 import pl.droidsonroids.examplerealmmvp.ui.detail.DetailActivity;
 
-public class BooksActivity extends AppCompatActivity implements BooksView, BookListAdapter.OnBookClickListener {
+public class BooksActivity extends BaseActivity implements BooksView, BookListAdapter.OnBookClickListener {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -28,14 +29,17 @@ public class BooksActivity extends AppCompatActivity implements BooksView, BookL
     private BookListAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        BooksApplication.injectModules(this, new BooksModule());
 
         initToolbar();
         initList();
+    }
+    @Override
+    protected Object getModule() {
+        return new BooksModule();
     }
 
     private void initToolbar() {
@@ -61,11 +65,9 @@ public class BooksActivity extends AppCompatActivity implements BooksView, BookL
         super.onStop();
         mMyListPresenter.clearView();
     }
-
     @Override
-    protected void onDestroy() {
+    protected void closeRealm() {
         mMyListPresenter.closeRealm();
-        super.onDestroy();
     }
 
     @Override

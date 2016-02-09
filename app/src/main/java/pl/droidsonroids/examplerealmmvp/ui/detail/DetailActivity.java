@@ -13,10 +13,11 @@ import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
 import pl.droidsonroids.examplerealmmvp.model.utils.BookDetailsUtils;
+import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 import pl.droidsonroids.examplerealmmvp.ui.author.AuthorActivity;
 import pl.droidsonroids.examplerealmmvp.ui.publisher.PublisherActivity;
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class DetailActivity extends BaseActivity implements DetailView {
 
     private static final String EXTRA_ID = "EXTRA_ID";
 
@@ -33,11 +34,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_detail);
         ButterKnife.bind(this);
-        BooksApplication.injectModules(this, new DetailModule(getIntent().getExtras().getInt(EXTRA_ID)));
+    }
+
+    @Override
+    protected Object getModule() {
+        return new DetailModule(getIntent().getExtras().getInt(EXTRA_ID));
     }
 
     @Override
@@ -53,9 +58,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void closeRealm() {
         mMyDetailPresenter.closeRealm();
-        super.onDestroy();
     }
 
     @Override

@@ -2,7 +2,6 @@ package pl.droidsonroids.examplerealmmvp.ui.publisher;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +9,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.realm.RealmList;
 import javax.inject.Inject;
-import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
+import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 import pl.droidsonroids.examplerealmmvp.ui.adapter.BookGridAdapter;
 
-public class PublisherActivity extends AppCompatActivity implements PublisherView {
+public class PublisherActivity extends BaseActivity implements PublisherView {
 
     private static final String EXTRA_PUBLISHER = "EXTRA_PUBLISHER";
 
@@ -30,13 +29,17 @@ public class PublisherActivity extends AppCompatActivity implements PublisherVie
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher);
         ButterKnife.bind(this);
-        BooksApplication.injectModules(this, new PublisherModule(getIntent().getExtras().getString(EXTRA_PUBLISHER)));
 
         initList();
+    }
+
+    @Override
+    protected Object getModule() {
+        return new PublisherModule(getIntent().getExtras().getString(EXTRA_PUBLISHER));
     }
 
     private void initList() {
@@ -58,9 +61,8 @@ public class PublisherActivity extends AppCompatActivity implements PublisherVie
     }
 
     @Override
-    protected void onDestroy() {
+    protected void closeRealm() {
         mPublisherPresenter.closeRealm();
-        super.onDestroy();
     }
 
     @Override

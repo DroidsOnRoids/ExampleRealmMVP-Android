@@ -28,18 +28,13 @@ public class RealmService {
     }
 
     public RealmList<Book> getPublisherBooks(final String publisher) {
-        Publisher foundPublisher = mRealm.where(Publisher.class).equalTo("name", publisher).findFirst();
+        Publisher foundPublisher = getPublisher(publisher, mRealm);
         return foundPublisher == null ? new RealmList<Book>() : foundPublisher.getBooks();
     }
 
     public RealmList<Book> getAuthorBooks(final String author) {
-        String[] authorName = splitAuthorName(author);
-        Author foundAuthor = mRealm.where(Author.class).equalTo("name", authorName[0]).equalTo("lastname", authorName[1]).findFirst();
+        Author foundAuthor = getAuthor(splitAuthorName(author), mRealm);
         return foundAuthor == null ? new RealmList<Book>() : foundAuthor.getBooks();
-    }
-
-    private String[] splitAuthorName(final String author) {
-        return author.split(" ");
     }
 
     public void addBookAsync(final String title, final String author, final String isbn, final String publisher, final OnTransactionCallback onTransactionCallback) {
@@ -73,7 +68,7 @@ public class RealmService {
 
     private Author createOrGetAuthor(final String author, final Book book, final Realm realm) {
         String[] authorName = splitAuthorName(author);
-        Author foundAuthor = realm.where(Author.class).equalTo("name", authorName[0]).equalTo("lastname", authorName[1]).findFirst();
+        Author foundAuthor = getAuthor(authorName, realm);
         if(foundAuthor == null) {
             foundAuthor = addAuthor(authorName, realm);
         }
@@ -90,7 +85,7 @@ public class RealmService {
     }
 
     private Publisher createOrGetPublisher(final String publisher, final Book book, final Realm realm) {
-        Publisher foundPublisher = realm.where(Publisher.class).equalTo("name", publisher).findFirst();
+        Publisher foundPublisher = getPublisher(publisher, realm);
         if(foundPublisher == null) {
             foundPublisher = addPublisher(publisher, realm);
         }
@@ -103,6 +98,18 @@ public class RealmService {
         publisher.setId(realm.allObjects(Publisher.class).size());
         publisher.setName(publisherName);
         return publisher;
+    }
+
+    private Author getAuthor(final String[] authorName, final Realm realm) {
+        return realm.where(Author.class).equalTo("name", authorName[0]).equalTo("lastname", authorName[1]).findFirst();
+    }
+
+    private String[] splitAuthorName(final String author) {
+        return author.split(" ");
+    }
+
+    private Publisher getPublisher(final String publisher, final Realm realm) {
+        return realm.where(Publisher.class).equalTo("name", publisher).findFirst();
     }
 
     public interface OnTransactionCallback {

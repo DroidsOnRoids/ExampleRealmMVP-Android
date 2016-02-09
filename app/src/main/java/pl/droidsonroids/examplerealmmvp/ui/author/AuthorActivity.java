@@ -13,9 +13,10 @@ import javax.inject.Inject;
 import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
+import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 import pl.droidsonroids.examplerealmmvp.ui.adapter.BookGridAdapter;
 
-public class AuthorActivity extends AppCompatActivity implements AuthorView {
+public class AuthorActivity extends BaseActivity implements AuthorView {
 
     private static final String EXTRA_AUTHOR = "EXTRA_AUTHOR";
 
@@ -30,14 +31,17 @@ public class AuthorActivity extends AppCompatActivity implements AuthorView {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_author);
-
         ButterKnife.bind(this);
-        BooksApplication.injectModules(this, new AuthorModule(getIntent().getExtras().getString(EXTRA_AUTHOR)));
 
         initList();
+    }
+
+    @Override
+    protected Object getModule() {
+        return new AuthorModule(getIntent().getExtras().getString(EXTRA_AUTHOR));
     }
 
     private void initList() {
@@ -59,9 +63,8 @@ public class AuthorActivity extends AppCompatActivity implements AuthorView {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void closeRealm() {
         mAuthorPresenter.closeRealm();
-        super.onDestroy();
     }
 
     @Override

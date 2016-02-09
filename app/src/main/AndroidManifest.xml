@@ -27,10 +27,10 @@
             android:label="@string/add_new_book"/>
         <activity
             android:name=".ui.publisher.PublisherActivity"
-            android:label="@string/publisher_books"/>
+            android:label="@string/publisher"/>
         <activity
             android:name=".ui.author.AuthorActivity"
-            android:label="@string/author_books"/>
+            android:label="@string/author"/>
     </application>
 
 </manifest>

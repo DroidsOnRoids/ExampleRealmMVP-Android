@@ -11,8 +11,9 @@ import butterknife.OnClick;
 import javax.inject.Inject;
 import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
+import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 
-public class AddBookActivity extends AppCompatActivity implements AddBookView {
+public class AddBookActivity extends BaseActivity implements AddBookView {
 
     @Bind(R.id.layout_container) LinearLayout mLayoutContainer;
     @Bind(R.id.edit_title) EditText mEditTitle;
@@ -23,11 +24,15 @@ public class AddBookActivity extends AppCompatActivity implements AddBookView {
     @Inject AddBookPresenter mAddBookPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         ButterKnife.bind(this);
-        BooksApplication.injectModules(this, new AddBookModule());
+    }
+
+    @Override
+    protected Object getModule() {
+        return new AddBookModule();
     }
 
     @Override
@@ -43,9 +48,8 @@ public class AddBookActivity extends AppCompatActivity implements AddBookView {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void closeRealm() {
         mAddBookPresenter.closeRealm();
-        super.onDestroy();
     }
 
     @OnClick(R.id.button_add)
