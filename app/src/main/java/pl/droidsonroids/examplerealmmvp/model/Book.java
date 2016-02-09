@@ -1,4 +1,4 @@
 package pl.droidsonroids.examplerealmmvp.model;
 
-public class MyBook {
+public class Book {
 }
