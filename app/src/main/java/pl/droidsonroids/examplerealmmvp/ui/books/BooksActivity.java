@@ -1,7 +1,6 @@
 package pl.droidsonroids.examplerealmmvp.ui.books;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.RealmResults;
 import javax.inject.Inject;
-import pl.droidsonroids.examplerealmmvp.BooksApplication;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
 import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
@@ -24,7 +22,7 @@ public class BooksActivity extends BaseActivity implements BooksView, BookListAd
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.toolbar) Toolbar mToolbar;
 
-    @Inject BooksPresenter mMyListPresenter;
+    @Inject BooksPresenter mBooksPresenter;
 
     private BookListAdapter mAdapter;
 
@@ -57,17 +55,18 @@ public class BooksActivity extends BaseActivity implements BooksView, BookListAd
     @Override
     protected void onStart() {
         super.onStart();
-        mMyListPresenter.setView(this);
+        mBooksPresenter.setView(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mMyListPresenter.clearView();
+        mBooksPresenter.clearView();
     }
+
     @Override
     protected void closeRealm() {
-        mMyListPresenter.closeRealm();
+        mBooksPresenter.closeRealm();
     }
 
     @Override
@@ -77,16 +76,21 @@ public class BooksActivity extends BaseActivity implements BooksView, BookListAd
 
     @Override
     public void onBookClick(final int id) {
-        mMyListPresenter.onBookClick(id);
-    }
-
-    @Override
-    public void showBookView(final int isbn) {
-        startActivity(DetailActivity.getStartIntent(this, isbn));
+        mBooksPresenter.onBookClick(id);
     }
 
     @OnClick(R.id.fab)
-    public void onFabClick() {
+    public void onAddNewBookClick() {
+        mBooksPresenter.onAddNewBookClick();
+    }
+
+    @Override
+    public void showBookDetailView(final int id) {
+        startActivity(DetailActivity.getStartIntent(this, id));
+    }
+
+    @Override
+    public void showAddNewBookView() {
         startActivity(new Intent(this, AddBookActivity.class));
     }
 }

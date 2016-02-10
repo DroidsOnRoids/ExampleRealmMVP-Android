@@ -5,18 +5,24 @@ import pl.droidsonroids.examplerealmmvp.model.Book;
 
 public interface BooksView {
 
-    void showBookView(int isbn);
     void showBooks(RealmResults<Book> books);
+    void showBookDetailView(int id);
+    void showAddNewBookView();
 
     class EmptyMyListView implements BooksView {
 
         @Override
-        public void showBookView(final int isbn) {
+        public void showBooks(final RealmResults<Book> books) {
+
+        }
+
+        @Override
+        public void showBookDetailView(final int id) {
             
         }
 
         @Override
-        public void showBooks(final RealmResults<Book> books) {
+        public void showAddNewBookView() {
 
         }
     }

@@ -38,6 +38,11 @@ public class BooksPresenterImpl implements BooksPresenter {
 
     @Override
     public void onBookClick(final int id) {
-        mMyListView.showBookView(id);
+        mMyListView.showBookDetailView(id);
+    }
+
+    @Override
+    public void onAddNewBookClick() {
+        mMyListView.showAddNewBookView();
     }
 }

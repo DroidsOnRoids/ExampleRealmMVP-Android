@@ -37,7 +37,8 @@ public class RealmService {
         return foundAuthor == null ? new RealmList<Book>() : foundAuthor.getBooks();
     }
 
-    public void addBookAsync(final String title, final String author, final String isbn, final String publisher, final OnTransactionCallback onTransactionCallback) {
+    public void addBookAsync(final String title, final String author, final String isbn, final String publisher,
+            final OnTransactionCallback onTransactionCallback) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(final Realm realm) {
