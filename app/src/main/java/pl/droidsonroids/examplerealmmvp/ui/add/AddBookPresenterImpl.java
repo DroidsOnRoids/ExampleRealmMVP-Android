@@ -12,8 +12,8 @@ public class AddBookPresenterImpl implements AddBookPresenter, RealmService.OnTr
     }
 
     @Override
-    public void setView(final Object view) {
-        mAddBookView = (AddBookView) view;
+    public void setView(final AddBookView view) {
+        mAddBookView = view;
     }
 
     @Override

@@ -14,8 +14,8 @@ public class DetailPresenterImpl implements DetailPresenter {
     }
 
     @Override
-    public void setView(final Object view) {
-        mMyDetailView = (DetailView) view;
+    public void setView(final DetailView view) {
+        mMyDetailView = view;
         mMyDetailView.showBookDetails(mRealmService.getBook(mBookId));
     }
 

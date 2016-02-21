@@ -14,8 +14,8 @@ public class BooksPresenterImpl implements BooksPresenter {
     }
 
     @Override
-    public void setView(final Object view) {
-        mMyListView = (BooksView) view;
+    public void setView(final BooksView view) {
+        mMyListView = view;
         showBooksIfNeeded();
     }
 
