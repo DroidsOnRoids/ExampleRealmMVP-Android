@@ -16,8 +16,8 @@ public class AuthorPresenterImpl implements AuthorPresenter {
     }
 
     @Override
-    public void setView(final Object view) {
-        mAuthorView = (AuthorView) view;
+    public void setView(final AuthorView view) {
+        mAuthorView = view;
         mAuthorView.showBooks(formatBooks(mRealmService.getAuthorBooks(mAuthor)));
     }
 

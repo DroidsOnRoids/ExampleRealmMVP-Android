@@ -16,8 +16,8 @@ public class PublisherPresenterImpl implements PublisherPresenter {
     }
 
     @Override
-    public void setView(final Object view) {
-        mPublisherView = (PublisherView) view;
+    public void setView(final PublisherView view) {
+        mPublisherView = view;
         mPublisherView.showBooks(formatBooks(mRealmService.getPublisherBooks(mPublisher)));
     }
 
