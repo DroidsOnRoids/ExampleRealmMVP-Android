@@ -12,7 +12,6 @@ import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
-import pl.droidsonroids.examplerealmmvp.model.utils.BookDetailsUtils;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHolder> implements RealmChangeListener {
 
@@ -32,7 +31,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         final Book book = mBooks.get(position);
 
         holder.mTextTitle.setText(book.getTitle());
-        holder.mTextDetails.setText(BookDetailsUtils.getDetails(book));
+        holder.mTextDetails.setText(book.getDetails());
         holder.mLayoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
