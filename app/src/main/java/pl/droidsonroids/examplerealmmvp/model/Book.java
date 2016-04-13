@@ -52,4 +52,16 @@ public class Book extends RealmObject {
     public void setPublisher(final Publisher publisher) {
         this.publisher = publisher;
     }
+
+    public String getDetails() {
+        String details = "";
+        details += getAuthorFullName();
+        details += " | ";
+        details += getPublisher().getName();
+        return details;
+    }
+
+    public String getAuthorFullName() {
+        return String.format("%s %s", getAuthor().getName(), getAuthor().getLastname());
+    }
 }

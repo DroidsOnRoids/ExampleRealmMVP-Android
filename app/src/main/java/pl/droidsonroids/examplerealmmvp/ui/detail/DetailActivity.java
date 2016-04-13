@@ -2,17 +2,15 @@ package pl.droidsonroids.examplerealmmvp.ui.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import javax.inject.Inject;
-import pl.droidsonroids.examplerealmmvp.BooksApplication;
+
 import pl.droidsonroids.examplerealmmvp.R;
 import pl.droidsonroids.examplerealmmvp.model.Book;
-import pl.droidsonroids.examplerealmmvp.model.utils.BookDetailsUtils;
 import pl.droidsonroids.examplerealmmvp.ui.BaseActivity;
 import pl.droidsonroids.examplerealmmvp.ui.author.AuthorActivity;
 import pl.droidsonroids.examplerealmmvp.ui.publisher.PublisherActivity;
@@ -64,7 +62,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     @Override
     public void showBookDetails(final Book book) {
-        mTextAuthor.setText(BookDetailsUtils.getAuthorFullName(book));
+        mTextAuthor.setText(book.getAuthorFullName());
         mTextTitle.setText(book.getTitle());
         mTextPublisher.setText(book.getPublisher().getName());
     }
